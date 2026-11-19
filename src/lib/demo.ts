@@ -1,8 +1,24 @@
-import { brDay, optOut, type Lead } from "./prospector";
+import { brDay, defaults, optOut, type Lead, type Offer, type Profile } from "./prospector";
 
 const today = brDay();
 const ago = (n: number) => new Date(`${today}T15:00:00Z`).getTime() - n * 86400000;
 const date = (n: number) => new Date(ago(n)).toISOString();
+export const demoSettings = { ...defaults, cidade: "São Paulo", assinatura: "Equipe comercial" };
+export const demoProfile: Profile = { nome: "Conta de demonstração", cargo: "Consultoria comercial", foto: "" };
+export const demoOffers: Offer[] = [
+  {
+    id: "atendimento", user_id: "", created_at: date(8),
+    nome: "Atendente de I.A no WhatsApp", para_quem: "Clínicas, salões e pet shops",
+    dor: "Perguntas e pedidos de agendamento chegam quando a equipe está ocupada ou fora do horário.",
+    resultado: "Responde perguntas comuns, encaminha pedidos de agendamento e passa casos específicos para a equipe.",
+  },
+  {
+    id: "orcamentos", user_id: "", created_at: date(8),
+    nome: "Acompanhamento de orçamentos", para_quem: "Lojas e prestadores de serviço",
+    dor: "Orçamentos podem ficar sem retorno quando o dia a dia aperta.",
+    resultado: "Organiza os pedidos e lembra a equipe de retomar conversas com clientes interessados.",
+  },
+];
 const rows = [
   ["Clínica Aurora", "Clínica estética", "Vila Mariana", 4.9, 186],
   ["Studio Bela Forma", "Salão de beleza", "Moema", 4.8, 124],

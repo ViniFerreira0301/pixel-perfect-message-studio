@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { BarChart3, Plus, ShieldCheck, Upload } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { demo } from "@/lib/demo";
+import { demo, demoOffers, demoProfile, demoSettings } from "@/lib/demo";
 import {
   brDay,
   defaults,
@@ -126,7 +126,7 @@ function Workspace({
   const preview = !userId;
   const leads = data?.leads ?? (preview ? demo : []);
   const settings = data?.settings ?? defaults;
-  const offers = data?.offers ?? [];
+  const offers = data?.offers ?? (preview ? demoOffers : []);
   const today = queue(leads, Number(settings.limite), day);
   const stats = funnel(leads);
   const active = leads.filter((l) => !l.company.saiu);
@@ -145,14 +145,11 @@ function Workspace({
     setModal(null);
     refresh();
   };
-  const requiresLogin = (
-    <div className="empty">
-      <p className="mb-3">Entre para trabalhar com sua própria lista.</p>
-      <Link to="/auth" className="btn btn-default">
-        Entrar
-      </Link>
-    </div>
-  );
+  const demoNotes = {
+    Importar: "Confira a prévia da sua planilha sem salvar os dados. Entre para importar as empresas.",
+    Ofertas: "Estas ofertas são exemplos. Entre para cadastrar e editar suas próprias ofertas.",
+    Configurações: "Estes dados são exemplos. Entre para editar seu perfil e suas preferências.",
+  };
   return (
     <>
       <PageHead
@@ -197,6 +194,12 @@ function Workspace({
           </Button>
         )}
       </PageHead>
+      {preview && (screen === "Importar" || screen === "Ofertas" || screen === "Configurações") && (
+        <div className="banner demo-note">
+          <span>{demoNotes[screen]}</span>
+          <Link to="/auth" className="btn btn-outline">Entrar</Link>
+        </div>
+      )}
       {screen === "Hoje" && (
         <>
           <Metrics counts={stats.counts} />
@@ -261,12 +264,9 @@ function Workspace({
           <LeadTable leads={filtered} mode="all" onOpen={setEditor} />
         </>
       )}
-      {screen === "Importar" &&
-        (preview ? requiresLogin : <ImportForm leads={leads} done={refresh} />)}
+      {screen === "Importar" && <ImportForm leads={preview ? [] : leads} done={refresh} canSave={!preview} />}
       {screen === "Ofertas" &&
-        (preview ? (
-          requiresLogin
-        ) : offers.length ? (
+        (offers.length ? (
           <div className="offer-grid">
             {offers.map((o) => (
               <article key={o.id} className="panel">
@@ -274,7 +274,7 @@ function Workspace({
                 <h2>{o.nome}</h2>
                 <p className="subtle">{o.dor}</p>
                 <p>{o.resultado}</p>
-                <Button
+                {!preview && <Button
                   variant="outline"
                   className="mt-3"
                   onClick={() => {
@@ -283,7 +283,7 @@ function Workspace({
                   }}
                 >
                   Editar oferta
-                </Button>
+                </Button>}
               </article>
             ))}
           </div>
@@ -349,7 +349,7 @@ function Workspace({
         (userId && data ? (
           <SettingsForm userId={userId} settings={settings} profile={data.profile} done={refresh} />
         ) : (
-          requiresLogin
+          <SettingsForm settings={demoSettings} profile={demoProfile} done={refresh} />
         ))}
       {screen === "Ajuda" && (
         <>

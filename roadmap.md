@@ -6,3 +6,4 @@
 - [x] Guia, testes das regras e verificação da prévia em computador e celular.
 - [x] Configurar o Gemini e armazenar a chave pelo formulário seguro.
 - [ ] Verificar a importação, a geração real e o registro do WhatsApp com uma sessão autenticada; a conta temporária de teste não foi autorizada.
+- [ ] Conferir todas as abas, liberar a consulta na demonstração e evitar informações cortadas em telas estreitas.

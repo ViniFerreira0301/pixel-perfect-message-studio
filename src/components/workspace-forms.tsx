@@ -131,7 +131,7 @@ export function ManualForm({
     </form>
   );
 }
-export function ImportForm({ leads, done }: { leads: Lead[]; done: () => void }) {
+export function ImportForm({ leads, done, canSave }: { leads: Lead[]; done: () => void; canSave: boolean }) {
   const [preview, setPreview] = useState<ReturnType<typeof parseRows> | null>(null);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
@@ -177,7 +177,7 @@ export function ImportForm({ leads, done }: { leads: Lead[]; done: () => void })
     }
   }
   async function save() {
-    if (!preview?.valid.length) return;
+    if (!canSave || !preview?.valid.length) return;
     setBusy(true);
     setError("");
     let imported = 0;
@@ -261,10 +261,13 @@ export function ImportForm({ leads, done }: { leads: Lead[]; done: () => void })
                   </tbody>
                 </table>
               </div>
-              <Button disabled={busy} onClick={() => void save()}>
-                <Upload />
-                Importar {preview.valid.length} empresa(s)
-              </Button>
+              {preview.valid.length > 10 && <p className="subtle mb-3">Mostrando as primeiras 10 de {preview.valid.length} empresas válidas.</p>}
+              {canSave && (
+                <Button disabled={busy} onClick={() => void save()}>
+                  <Upload />
+                  Importar {preview.valid.length} empresa(s)
+                </Button>
+              )}
             </>
           )}
         </section>
@@ -349,7 +352,7 @@ export function SettingsForm({
 }: {
   settings: Settings;
   profile: Profile;
-  userId: string;
+  userId?: string;
   done: () => void;
 }) {
   const [error, setError] = useState("");
@@ -357,6 +360,7 @@ export function SettingsForm({
   const [busy, setBusy] = useState(false);
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!userId) return;
     setError("");
     setNotice("");
     const data = new FormData(e.currentTarget);
@@ -390,6 +394,7 @@ export function SettingsForm({
     <form onSubmit={submit}>
       <Notice text={error} error />
       <Notice text={notice} />
+      <fieldset disabled={!userId}>
       <section className="mb-5">
         <h2 className="mb-3 text-lg font-bold">Prospecção</h2>
         <div className="form-grid">
@@ -428,9 +433,8 @@ export function SettingsForm({
           </Field>
         </div>
       </section>
-      <Button type="submit" disabled={busy}>
-        Salvar configurações
-      </Button>
+      {userId && <Button type="submit" disabled={busy}>Salvar configurações</Button>}
+      </fieldset>
     </form>
   );
 }
