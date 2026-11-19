@@ -1,29 +1,16 @@
-# Welcome to your Lovable project
+# Prospector de I.A
 
-This project was built with [Lovable](https://lovable.dev).
+Painel em português para revisar abordagens comerciais e acompanhar contatos. A abertura do WhatsApp é registrada no painel, mas só você pode confirmar o envio no próprio WhatsApp. Respostas e pedidos de saída são registrados manualmente.
 
-## Build with Lovable
+## Credenciais
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Em **Configurações do projeto → Secrets**, configure `IA_PROVEDOR` como `openai` ou `gemini` e cadastre a chave correspondente em `IA_CHAVE`. Nunca salve a chave no código, na planilha ou no chat. Cadastre ao menos uma oferta antes de gerar suas mensagens. A geração usa os dados públicos cadastrados da empresa e não consulta nem raspa sites automaticamente.
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+## Exportar e importar empresas
 
-## Development
+1. No Apify, use o seu coletor do Google Maps para uma categoria e cidade. Confira se você pode usar comercialmente os dados e retenha apenas informações comerciais necessárias.
+2. Abra o resultado da execução e baixe o conjunto de dados em CSV ou Excel (`.xlsx`). O Prospector reconhece `title`, `categoryName`, `city`, `neighborhood`, `phone`, `website`, `totalScore` e `reviewsCount`.
+3. Ou monte uma planilha simples com `nome`, `categoria`, `cidade`, `telefone`, `site` e `instagram`. As colunas `bairro`, `nota_google` e `avaliacoes_google` são opcionais.
+4. Entre no Prospector, abra **Importar**, escolha o arquivo, confira a prévia e confirme. Duplicatas e telefones incompatíveis aparecem entre os descartes.
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+O limite inicial é de 20 primeiros contatos por dia no horário de Brasília. Follow-ups vencidos aparecem primeiro; nenhuma mensagem é disparada automaticamente.
