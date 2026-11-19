@@ -98,17 +98,19 @@ export function ManualForm({
     <form onSubmit={submit}>
       <Notice text={error} error />
       <div className="form-grid">
-        {[
-          ["Nome da empresa", "nome"],
-          ["Telefone comercial", "telefone"],
-          ["Categoria", "categoria"],
-          ["Cidade", "cidade"],
-          ["Bairro", "bairro"],
-          ["Site", "site"],
-          ["Instagram", "instagram"],
-          ["Nota no Google", "nota_google"],
-          ["Avaliações no Google", "avaliacoes_google"],
-        ].map(([label, name]) => (
+        {(
+          [
+            ["Nome da empresa", "nome"],
+            ["Telefone comercial", "telefone"],
+            ["Categoria", "categoria"],
+            ["Cidade", "cidade"],
+            ["Bairro", "bairro"],
+            ["Site", "site"],
+            ["Instagram", "instagram"],
+            ["Nota no Google", "nota_google"],
+            ["Avaliações no Google", "avaliacoes_google"],
+          ] as const
+        ).map(([label, name]) => (
           <Field key={name} label={label}>
             <input
               name={name}
@@ -270,7 +272,7 @@ export function ImportForm({ leads, done }: { leads: Lead[]; done: () => void })
     </>
   );
 }
-export function OfferForm({ offer, done }: { offer?: Offer; done: () => void }) {
+export function OfferForm({ offer, done }: { offer?: Offer | undefined; done: () => void }) {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   async function submit(e: FormEvent<HTMLFormElement>) {

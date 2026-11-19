@@ -105,7 +105,7 @@ export function LeadEditor({
         const resultData = result.data;
         const phone =
           resultData && typeof resultData === "object" && !Array.isArray(resultData)
-            ? resultData.telefone
+            ? resultData["telefone"]
             : null;
         if (typeof phone !== "string") throw new Error("Não foi possível recuperar o telefone.");
         const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;

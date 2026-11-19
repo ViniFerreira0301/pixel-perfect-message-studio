@@ -43,7 +43,7 @@ export const escrever = createServerFn({ method: "POST" })
     if (company.data.saiu) return { error: "Esta empresa pediu para não receber mensagens." };
     if (!offers.data.length) return { error: "Cadastre pelo menos uma oferta antes de escrever." };
     const key = process.env["IA_CHAVE"];
-    const provider = (process.env["IA_PROVEDOR"] || "openai").trim().toLowerCase();
+    const provider = (process.env["IA_PROVEDOR"] || "").trim().toLowerCase();
     if (!key || !["openai", "gemini"].includes(provider))
       return { error: "Configure os segredos IA_PROVEDOR e IA_CHAVE para gerar com I.A." };
     const input = JSON.stringify({

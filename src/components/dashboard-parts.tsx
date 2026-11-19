@@ -56,8 +56,8 @@ export function Shell({
 }: {
   screen: Screen;
   preview?: boolean;
-  name?: string;
-  photo?: string;
+  name?: string | undefined;
+  photo?: string | undefined;
   children: ReactNode;
   onLogout?: () => void;
 }) {
@@ -126,7 +126,7 @@ export function PageHead({
 }: {
   title: string;
   description: string;
-  overline?: string;
+  overline?: string | undefined;
   children?: ReactNode;
 }) {
   return (

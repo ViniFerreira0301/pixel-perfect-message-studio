@@ -1,7 +1,8 @@
 # Prospector de I.A
 
-- [ ] Fila, empresas, importação, ofertas, funil, configurações e ajuda.
-- [ ] Login e perfil com nome, foto e cargo.
-- [ ] Persistência privada, registro de envios e geração de mensagens.
-- [ ] Guia e verificação.
-- [ ] Configurar o Gemini e receber uma nova chave pelo formulário seguro.
+- [x] Fila, empresas, importação, ofertas, funil, configurações e ajuda.
+- [x] Login e perfil com nome, foto e cargo.
+- [x] Persistência privada, registro de aberturas do WhatsApp e geração de mensagens.
+- [x] Guia, testes das regras e verificação da prévia em computador e celular.
+- [x] Configurar o Gemini e armazenar a chave pelo formulário seguro.
+- [ ] Verificar a importação, a geração real e o registro do WhatsApp com uma sessão autenticada; a conta temporária de teste não foi autorizada.

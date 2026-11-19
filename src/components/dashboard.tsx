@@ -107,8 +107,8 @@ function Workspace({
   refresh,
 }: {
   screen: Screen;
-  userId?: string;
-  data?: WorkspaceData;
+  userId?: string | undefined;
+  data?: WorkspaceData | undefined;
   refresh: () => void;
 }) {
   const [editor, setEditor] = useState<Lead | null>(null);
