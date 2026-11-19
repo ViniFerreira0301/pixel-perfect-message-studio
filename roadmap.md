@@ -4,4 +4,4 @@
 - [ ] Login e perfil com nome, foto e cargo.
 - [ ] Persistência privada, registro de envios e geração de mensagens.
 - [ ] Guia e verificação.
-- [ ] Confirmar o provedor da chave e configurar uma chave nova por formulário seguro.
+- [ ] Configurar o Gemini e receber uma nova chave pelo formulário seguro.
