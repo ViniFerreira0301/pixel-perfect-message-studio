@@ -33,3 +33,4 @@ use the editor.
 
 - Use owner-scoped database policies and a transactional contact action for WhatsApp handoffs, so concurrent tabs respect the daily quota and opt-outs.
 - Keep the signed-out dashboard read-only and separate from authenticated workspace queries, so example leads cannot become real prospects.
+- Show complete read-only examples on signed-out tabs and allow local file previews without persistence, so visitors can inspect every screen without exposing account data or enabling writes.

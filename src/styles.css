@@ -246,6 +246,7 @@ button:disabled {
   position: sticky;
   top: 0;
   height: 100dvh;
+  overflow-y: auto;
   background: var(--sidebar);
   border-right: 1px solid var(--border);
   display: flex;
@@ -260,8 +261,9 @@ button:disabled {
   padding: 0 7px;
   font-weight: 800;
   font-size: 16px;
-  white-space: nowrap;
+  min-width: 0;
 }
+.brand > span:last-child { min-width: 0; overflow-wrap: anywhere; }
 .brand small {
   display: block;
   font-size: 11px;
@@ -349,6 +351,8 @@ button:disabled {
   gap: 10px;
 }
 .content {
+  min-width: 0;
+  overflow-wrap: anywhere;
   max-width: 1400px;
   margin: 0 auto;
   padding: 27px 30px 48px;
@@ -388,7 +392,8 @@ button:disabled {
   font-weight: 750;
   color: var(--primary);
   background: var(--lavender-wash);
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 .tone-mint {
   --tone: var(--mint);
@@ -433,6 +438,7 @@ button:disabled {
   display: flex;
   gap: 8px;
   align-items: center;
+  flex-wrap: wrap;
   color: var(--muted-foreground);
   font-size: 12px;
   font-weight: 640;
@@ -517,6 +523,7 @@ progress::-moz-progress-bar {
   display: flex;
   align-items: center;
   gap: 9px;
+  flex-wrap: wrap;
   margin-bottom: 10px;
 }
 .section-heading h2 {
@@ -648,6 +655,8 @@ progress::-moz-progress-bar {
 .panel p + p {
   margin-top: 8px;
 }
+.demo-note { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.demo-note > span { flex: 1; min-width: min(100%, 220px); }
 .offer-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
@@ -773,8 +782,8 @@ progress::-moz-progress-bar {
     border-bottom: 1px solid var(--border);
   }
   .nav-group {
-    display: flex;
-    overflow-x: auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     margin-top: 8px;
     gap: 4px;
     scrollbar-width: thin;
@@ -784,7 +793,7 @@ progress::-moz-progress-bar {
     display: none;
   }
   .nav-link {
-    white-space: nowrap;
+    white-space: normal;
     padding: 7px 9px;
   }
   .brand {
@@ -805,9 +814,10 @@ progress::-moz-progress-bar {
   .filters {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .hide-small {
+  .topbar .hide-small, .data-table .btn .hide-small {
     display: none;
   }
+  .data-table { min-width: 660px; }
   .section-heading .subtle {
     display: none;
   }
