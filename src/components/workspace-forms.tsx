@@ -1,6 +1,6 @@
 import { useState, type FormEvent, type ReactNode } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { FileSpreadsheet, Plus, Trash2, Upload, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, FileSpreadsheet, Plus, Trash2, Upload, X } from "lucide-react";
 import { Button } from "./button";
 import { supabase } from "@/integrations/supabase/client";
 import { parseRows, type Lead, type Offer, type Profile, type Settings } from "@/lib/prospector";
@@ -133,6 +133,7 @@ export function ManualForm({
 }
 export function ImportForm({ leads, done, canSave }: { leads: Lead[]; done: () => void; canSave: boolean }) {
   const [preview, setPreview] = useState<ReturnType<typeof parseRows> | null>(null);
+  const [page, setPage] = useState(0);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [busy, setBusy] = useState(false);
@@ -140,6 +141,7 @@ export function ImportForm({ leads, done, canSave }: { leads: Lead[]; done: () =
     setError("");
     setNotice("");
     setPreview(null);
+    setPage(0);
     if (!file) return;
     setBusy(true);
     try {
@@ -251,7 +253,7 @@ export function ImportForm({ leads, done, canSave }: { leads: Lead[]; done: () =
                     </tr>
                   </thead>
                   <tbody>
-                    {preview.valid.slice(0, 10).map((row) => (
+                    {preview.valid.slice(page * 10, (page + 1) * 10).map((row) => (
                       <tr key={row.telefone}>
                         <td>{row.nome}</td>
                         <td>{row.categoria || "—"}</td>
@@ -261,7 +263,15 @@ export function ImportForm({ leads, done, canSave }: { leads: Lead[]; done: () =
                   </tbody>
                 </table>
               </div>
-              {preview.valid.length > 10 && <p className="subtle mb-3">Mostrando as primeiras 10 de {preview.valid.length} empresas válidas.</p>}
+              {preview.valid.length > 10 && (
+                <div className="preview-pagination">
+                  <span className="subtle">{page * 10 + 1}–{Math.min((page + 1) * 10, preview.valid.length)} de {preview.valid.length} empresas</span>
+                  <div className="head-actions">
+                    <Button variant="outline" aria-label="Empresas anteriores" disabled={page === 0} onClick={() => setPage(value => value - 1)}><ChevronLeft /></Button>
+                    <Button variant="outline" aria-label="Próximas empresas" disabled={(page + 1) * 10 >= preview.valid.length} onClick={() => setPage(value => value + 1)}><ChevronRight /></Button>
+                  </div>
+                </div>
+              )}
               {canSave && (
                 <Button disabled={busy} onClick={() => void save()}>
                   <Upload />

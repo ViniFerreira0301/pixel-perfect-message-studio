@@ -7,3 +7,4 @@
 - [x] Configurar o Gemini e armazenar a chave pelo formulário seguro.
 - [ ] Verificar a importação, a geração real e o registro do WhatsApp com uma sessão autenticada; a conta temporária de teste não foi autorizada.
 - [x] Conferir todas as abas, liberar a consulta na demonstração e evitar informações cortadas em telas estreitas.
+- [ ] Conferir também a prévia completa da importação, janelas de revisão, formulários e telas de acesso.

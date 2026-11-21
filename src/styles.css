@@ -635,8 +635,10 @@ progress::-moz-progress-bar {
 }
 .field textarea {
   min-height: 82px;
+  field-sizing: content;
   resize: vertical;
 }
+.preview-pagination { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; }
 .full {
   grid-column: 1/-1;
 }
@@ -702,6 +704,8 @@ progress::-moz-progress-bar {
   width: min(610px, calc(100% - 28px));
   max-height: calc(100dvh - 28px);
   overflow: auto;
+  overflow-wrap: anywhere;
+  overscroll-behavior: contain;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -726,6 +730,8 @@ progress::-moz-progress-bar {
 }
 .auth-box {
   width: min(100%, 410px);
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 .auth-box .brand {
   padding: 0;
